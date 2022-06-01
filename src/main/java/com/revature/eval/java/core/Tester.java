@@ -7,8 +7,7 @@ public class Tester {
 		
 		EvaluationService es = new EvaluationService();
 		System.out.println(es.areEqualByThreeDecimalPlaces(-3.1756, -3.175));
-		
-		//making a change here to push to Github with correct account
+
 	}
 	
 }
