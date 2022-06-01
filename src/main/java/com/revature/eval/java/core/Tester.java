@@ -8,6 +8,7 @@ public class Tester {
 		EvaluationService es = new EvaluationService();
 		System.out.println(es.areEqualByThreeDecimalPlaces(-3.1756, -3.175));
 
+		System.out.println(es.printYearsAndDays(525600));
 	}
 	
 }
