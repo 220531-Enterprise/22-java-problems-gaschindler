@@ -74,8 +74,14 @@ public class EvaluationService {
 	 * Value".
 	 */
 	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if (XX < 0) {
+			return "Invalid Value";
+		}
+		
+		int YY = XX / 1024;
+		int ZZ = XX % 1024;
+		
+		return (XX + " KB = " + YY + " MB and " + ZZ + " KB");
 	}
 
 	/**
@@ -98,7 +104,14 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
-		// TODO Write an implementation for this method declaration
+		if (hourOfDay < 0 || hourOfDay > 23) {
+			return false;
+		}
+		
+		if (isBarking && (hourOfDay < 8 || hourOfDay > 22)) {
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -114,7 +127,13 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
+		firstNum = (int) (firstNum * 1_000);
+		secondNum = (int) (secondNum * 1_000);
+		
+		if (firstNum == secondNum) {
+			return true;
+		}
+		
 		return false;
 	}
 
