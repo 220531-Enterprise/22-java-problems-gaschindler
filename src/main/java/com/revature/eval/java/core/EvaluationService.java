@@ -287,8 +287,17 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (num < 0) {
+			return -1;
+		}
+		
+		int sum = num % 10;
+		
+		while (num / 10 > 0) {
+			num /= 10;
+		}
+		
+		return (sum + num);
 	}
 
 	/**
@@ -298,8 +307,13 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String reversedString = "";
+		
+		for (int i = string.length() - 1; i >= 0; i--) {
+			reversedString += string.charAt(i);
+		}
+		
+		return reversedString;
 	}
 
 	/**
@@ -310,8 +324,23 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		phrase = phrase.toUpperCase();
+		String acronymString = "";
+		
+		boolean takeNext = true;
+		for (int i = 0; i < phrase.length(); i++) {
+			if (takeNext && phrase.charAt(i) >= 60 && phrase.charAt(i) <= 95) {
+				acronymString += phrase.charAt(i);
+				takeNext = false;
+				continue;
+			}
+			
+			if (phrase.charAt(i) < 60 || phrase.charAt(i) > 95) {
+				takeNext = true;
+			}
+		}
+		
+		return acronymString;
 	}
 
 	/**
@@ -366,18 +395,15 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.sideOne == this.sideTwo) && (this.sideTwo == this.sideThree));
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.sideOne == this.sideTwo) || (this.sideTwo == this.sideThree) || (this.sideOne == this.sideThree));
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.sideOne != this.sideTwo) && (this.sideTwo != this.sideThree) && (this.sideOne != this.sideThree));
 		}
 
 	}
