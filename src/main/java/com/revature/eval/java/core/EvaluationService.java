@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -423,8 +425,19 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		// ASCII values of capital chars A-Z consist of decimal values 65 - 90
+		// string is converted to upper case so char values are consistent with this property
+		string = string.toUpperCase();
+		
+		// indexes of char value are equivalent to ASCII value - 65
+		int[] letterValues = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+		int score = 0;
+		
+		for (int i = 0; i < string.length(); i++) {
+			score += letterValues[string.charAt(i) - 65];
+		}
+
+		return score;
 	}
 
 	/**
@@ -460,8 +473,18 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
-		return null;
+	public String cleanPhoneNumber(String string) throws IllegalArgumentException {
+		string = string.replaceAll("[^0-9]", "");
+		
+		if (string.charAt(0) == '1') {
+			string = string.substring(1);
+		}
+		
+		if (string.length() != 10) {
+			throw new IllegalArgumentException();
+		}
+		
+		return string;
 	}
 
 	/**
@@ -473,8 +496,19 @@ public class EvaluationService {
 	 * free: 1
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		Map<String, Integer> wordCount = new HashMap<>();
+		
+		// create a String array containing each word in the input string
+		String[] words = string.split("\\W+");
+		for (String word : words) {
+			if (!wordCount.containsKey(word)) {
+				wordCount.put(word, 1);
+			} else {
+				wordCount.replace(word, wordCount.get(word) + 1);
+			}
+		}
+		
+		return wordCount;
 	}
 
 	/**
@@ -492,7 +526,19 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
-		return false;
+		// number of digits of the input
+		int numDigits = String.valueOf(input).length();
+		int inputCopy = input;
+		
+		int armstrongValue = 0;
+		int counter = numDigits;
+		while (counter > 0) {
+			armstrongValue += Math.pow(inputCopy % 10, numDigits);
+			inputCopy /= 10;
+			counter--;
+		}
+		
+		return (armstrongValue == input);
 	}
 
 	/**
@@ -504,8 +550,37 @@ public class EvaluationService {
 	 * Note that 1 is not a prime number.
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primeFactors = new ArrayList<>();
+		long next = 2L;
+		
+		while (next <= l) {
+			if (l % next == 0 && isPrime(next)) {
+				primeFactors.add(next);
+				if (isPrime(l / next) && l / next != 1) {
+					primeFactors.add(l / next);
+				}
+			}
+			
+			next++;
+		}
+
+		return primeFactors;
+	}
+	
+	/**
+	 * Helper method for 17 (see above)
+	 */
+	private static boolean isPrime(long l) {
+		long check = 2;
+		while (check <= l / 2) {
+			if (l % check == 0) {
+				return false;
+			}
+			
+			check++;
+		}
+		
+		return true;
 	}
 
 	/**
