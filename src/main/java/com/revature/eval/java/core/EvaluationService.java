@@ -549,31 +549,30 @@ public class EvaluationService {
 	 * 
 	 * Note that 1 is not a prime number.
 	 */
-	public List<Long> calculatePrimeFactorsOf(long l) {
+	public List<Long> calculatePrimeFactorsOf(long number) {
 		List<Long> primeFactors = new ArrayList<>();
-		long next = 2L;
 		
-		while (next <= l) {
-			if (l % next == 0 && isPrime(next)) {
-				primeFactors.add(next);
-				if (isPrime(l / next) && l / next != 1) {
-					primeFactors.add(l / next);
-				}
+		for (long i = 2; i <= number; i++) {
+			if (!isPrime(i)) {
+				continue;
 			}
 			
-			next++;
+			while (number % i == 0) {
+				primeFactors.add(i);
+				number /= i;
+			}
 		}
 
 		return primeFactors;
 	}
 	
 	/**
-	 * Helper method for 17 (see above)
+	 * Helper method for 17 (see above) and 18 (see below)
 	 */
-	private static boolean isPrime(long l) {
+	private static boolean isPrime(long number) {
 		long check = 2;
-		while (check <= l / 2) {
-			if (l % check == 0) {
+		while (check <= number / 2) {
+			if (number % check == 0) {
 				return false;
 			}
 			
@@ -595,8 +594,28 @@ public class EvaluationService {
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
 	public int calculateNthPrime(int k) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int[] firstPrimes = {2, 3, 5, 7, 11, 13};
+		
+		if (k < 1) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (k <= 6) {
+			return firstPrimes[k - 1];
+		}
+		
+		int counter = 6;
+		int currentNumber = 14;
+		
+		while (counter < k) {
+			if (isPrime(currentNumber)) {
+				counter++;
+			}
+			
+			currentNumber++;
+		}
+		
+		return --currentNumber;
 	}
 
 	/**
@@ -612,7 +631,8 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		boolean[] letterTracker = new boolean[26];
+		
 		return false;
 	}
 
