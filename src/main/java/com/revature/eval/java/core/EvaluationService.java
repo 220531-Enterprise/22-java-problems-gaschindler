@@ -2,8 +2,10 @@ package com.revature.eval.java.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -631,9 +633,21 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
+		string = string.replaceAll("[^a-z]", "");
+		
 		boolean[] letterTracker = new boolean[26];
 		
-		return false;
+		for (int i = 0; i < string.length(); i++) {
+			letterTracker[string.charAt(i) - 97] = true;
+		}
+		
+		for (int i = 0; i < letterTracker.length; i++) {
+			if (letterTracker[i] == false) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**
@@ -647,8 +661,24 @@ public class EvaluationService {
 	 * 
 	 * The sum of these multiples is 78.
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		return 0;
+	public int getSumOfMultiples(int number, int[] set) {
+		Set<Integer> multiplesSet = new HashSet<>();
+		
+		for (int i = 0; i < set.length; i++) {
+			int currentMultiple = set[i];
+			while (currentMultiple < number) {
+				multiplesSet.add(currentMultiple);
+				currentMultiple += set[i];
+			}
+		}
+		
+		int sum = 0;
+		
+		for (Integer num : multiplesSet) {
+			sum += num;
+		}
+		
+		return sum;
 	}
 	
 	/**
@@ -662,7 +692,12 @@ public class EvaluationService {
 	 */
 	
 	public int[] threeLuckyNumbers() {
-		return null;
+		int[] luckyNumbers = new int[3];
+		for (int i = 0; i < luckyNumbers.length; i++) {
+			luckyNumbers[i] = (int) (Math.random() * 100.0);
+		}
+		
+		return luckyNumbers;
 	}
 	
 	/*
@@ -676,6 +711,6 @@ public class EvaluationService {
 	 */
 	
 	public int guessingGame(int x, int y) {
-		return 0;
+		return ((int) ((Math.random() * (y - x)) + x));
 	}
 }
